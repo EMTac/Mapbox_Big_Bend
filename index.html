@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" type="text/css" href="styles.css">
+      <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+      <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+    </head>
+    <body>
+      <h1>Hiking Trails in Big Bend National Park, TX</h1>
+      <div id="map">
+        <div id='legend'>
+          <h4>Big Bend NP Trails</h4>
+          <ul>
+              <li><hr class="class1"> Class 1 trail: Minimally Developed</li>
+              <li><hr class="class2"> Class 2 trail: Moderately Developed</li>
+              <li><hr class="class3"> Class 3 trail: Developed</li>
+              <li><hr class="boundary"> Park boundary</li>
+          </ul>
+        </div>
+      </div>
+      <p>Hiking trails in Big Bend, NP, symbolized by development status. Yellow trails are highly developed, whereas red trails are more primitive. The map view can be rotated to showcase terrain features in the area. Trail data comes from the <a href="https://public-nps.opendata.arcgis.com/">National Park Service Open Data Portal</a>.</p>
+      <script type="text/javascript" src="scripts.js"></script>
+    </body>
+</html>
