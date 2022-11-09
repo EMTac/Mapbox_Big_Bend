@@ -18,6 +18,9 @@ map.on('load', () => {
     'id': 'trails-layer',
     'type': 'line',
     'source': 'trails',
+    'layout': {
+        'visibility': 'visible'
+    },
     'paint': {
         'line-width': 3,
         'line-color': ['match', ['get', 'TRLCLASS'],
@@ -37,6 +40,9 @@ map.on('load', () => {
       'id': 'boundary-layer',
       'type': 'line',
       'source': 'bounds',
+      'layout': {
+          'visibility': 'visible'
+      },
       'paint': {
           'line-width': 4,
           'line-color': 'black',
@@ -96,3 +102,56 @@ map.on('load', () => {
     map.addControl(scale, 'bottom-left');
 
     scale.setUnit('imperial');
+
+    map.on('idle', () => {
+      // If these two layers were not added to the map, abort
+      if (!map.getLayer('trails-layer') || !map.getLayer('boundary-layer')) {
+        return;
+        }
+
+      // Enumerate ids of the layers.
+      const toggleableLayerIds = ['trails-layer', 'boundary-layer'];
+
+      // Set up the corresponding toggle button for each layer.
+      for (const id of toggleableLayerIds) {
+        // Skip layers that already have a button set up.
+        if (document.getElementById(id)) {
+        continue;
+        }
+
+        // Create a link.
+        const link = document.createElement('a');
+        link.id = id;
+        link.href = '#';
+        link.textContent = id;
+        link.className = 'active';
+
+        // Show or hide layer when the toggle is clicked.
+        link.onclick = function (e) {
+          const clickedLayer = this.textContent;
+          e.preventDefault();
+          e.stopPropagation();
+
+          const visibility = map.getLayoutProperty(
+            clickedLayer,
+            'visibility'
+          );
+
+          // Toggle layer visibility by changing the layout object's visibility property.
+          if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            this.className = '';
+          } else {
+            this.className = 'active';
+            map.setLayoutProperty(
+              clickedLayer,
+              'visibility',
+              'visible'
+            );
+          }
+        };
+
+      const layers = document.getElementById('menu');
+      layers.appendChild(link);
+      }
+});
